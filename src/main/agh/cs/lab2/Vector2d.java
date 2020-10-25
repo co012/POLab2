@@ -19,7 +19,7 @@ public class Vector2d {
 
 
     public boolean precedes(Vector2d other) {
-        if (other == null) return false;
+        if (other == null) throw new NullPointerException();
         return x <= other.x && y <= other.y;
     }
 
