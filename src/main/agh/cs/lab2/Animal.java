@@ -6,16 +6,19 @@ public class Animal {
     private MapDirection mapDirection;
     private Vector2d position;
 
-    // field
-    private static final Vector2d upperRightBoundary = new Vector2d(4, 4);
-    private static final Vector2d lowerLeftBoundary = new Vector2d(0, 0);
+    private final IWorldMap map;
 
+    public Animal(IWorldMap map) {
+        this(map, new Vector2d(2, 2));
+    }
 
-    public Animal() {
-
+    public Animal(IWorldMap map, Vector2d initialPosition) {
+        this.map = map;
         mapDirection = MapDirection.NORTH;
-        position = new Vector2d(2, 2);
-
+        position = initialPosition;
+        if (!map.place(this)) {
+            throw new RuntimeException("Two animals can't occupy the same position");
+        }
     }
 
     public MapDirection getMapDirection() {
@@ -28,10 +31,12 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal{" +
-                "kierunek=" + mapDirection +
-                ", pozycja=" + position +
-                '}';
+        return switch (mapDirection) {
+            case NORTH -> "^";
+            case EAST -> ">";
+            case WEST -> "<";
+            case SOUTH -> "v";
+        };
     }
 
 
@@ -40,17 +45,11 @@ public class Animal {
             mapDirection = mapDirection.previous();
         } else if (direction == MoveDirection.RIGHT) {
             mapDirection = mapDirection.next();
-        } else if (direction == MoveDirection.FORWARD) {
-            Vector2d newPosition = position.add(mapDirection.toUnitVector());
-            if (newPosition.precedes(upperRightBoundary) && newPosition.follows(lowerLeftBoundary)) {
-                position = newPosition;
-            }
-        } else if (direction == MoveDirection.BACKWARD) {
-            Vector2d newPosition = position.subtract(mapDirection.toUnitVector());
-            if (newPosition.precedes(upperRightBoundary) && newPosition.follows(lowerLeftBoundary)) {
+        } else {
+            Vector2d newPosition = direction == MoveDirection.FORWARD ? position.add(mapDirection.toUnitVector()) : position.subtract(mapDirection.toUnitVector());
+            if (map.canMoveTo(newPosition)) {
                 position = newPosition;
             }
         }
-
     }
 }

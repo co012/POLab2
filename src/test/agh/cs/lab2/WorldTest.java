@@ -15,7 +15,8 @@ public class WorldTest {
     @Test
     public void shouldRotate() {
 
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         applyMoves(animal,OptionsParser.parse(new String[]{"l"}));
         assertEquals(MapDirection.WEST,animal.getMapDirection());
@@ -32,7 +33,8 @@ public class WorldTest {
 
     @Test
     public void shouldGoBackAndForth(){
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         applyMoves(animal,OptionsParser.parse(new String[]{"f"}));
         assertEquals(new Vector2d(2,3),animal.getPosition());
@@ -49,7 +51,8 @@ public class WorldTest {
 
     @Test
     public void shouldFollowComplexScenario(){
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         applyMoves(animal,OptionsParser.parse(new String[]{"f","r","f","left","f","l","f","f","r","b","backward","l"}));
         assertEquals(new Vector2d(1,2),animal.getPosition());
@@ -59,7 +62,8 @@ public class WorldTest {
 
     @Test
     public void shouldFollowComplexScenarioAndNotGoBeyond(){
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         applyMoves(animal,OptionsParser.parse(new String[]{"f","f","f","left","f","f","f","f","r","b",
                 "backward","backward","backward","backward","backward","backward","backward","backward","r"}));

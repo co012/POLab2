@@ -8,7 +8,8 @@ public class AnimalTest {
 
     @Test
     public void shouldChangeMapDirection() {
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         animal.move(MoveDirection.LEFT);
         assertEquals(MapDirection.WEST,animal.getMapDirection());
@@ -19,7 +20,8 @@ public class AnimalTest {
 
     @Test
     public void shouldChangePosition(){
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         animal.move(MoveDirection.FORWARD);
         assertEquals(new Vector2d(2,3),animal.getPosition());
@@ -39,10 +41,11 @@ public class AnimalTest {
 
     @Test
     public void shouldNotAllowUpperRightBoundaryCrossing(){
-        //upperRight (4,4)
+        //upperRight = (4,4)
 
 
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
@@ -68,9 +71,10 @@ public class AnimalTest {
 
     @Test
     public void shouldNotAllowLowerLeftBoundaryCrossing(){
-        //lowerLeft (0,0)
+        //lowerLeft = (0,0)
 
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(4,4);
+        Animal animal = new Animal(map);
 
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.RIGHT);
