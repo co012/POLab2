@@ -2,7 +2,7 @@ package agh.cs.lab2;
 
 import java.util.Objects;
 
-public class Vector2d {
+public final class Vector2d {
 
     public final int x;
     public final int y;

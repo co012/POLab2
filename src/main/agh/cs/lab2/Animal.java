@@ -7,16 +7,11 @@ public class Animal {
     private Vector2d position;
 
     // field
-    private static Vector2d upperRightBoundary;
-    private static Vector2d lowerLeftBoundary;
+    private static final Vector2d upperRightBoundary = new Vector2d(4, 4);
+    private static final Vector2d lowerLeftBoundary = new Vector2d(0, 0);
 
 
     public Animal() {
-
-        if (upperRightBoundary == null) {
-            upperRightBoundary = new Vector2d(4, 4);
-            lowerLeftBoundary = new Vector2d(0, 0);
-        }
 
         mapDirection = MapDirection.NORTH;
         position = new Vector2d(2, 2);
