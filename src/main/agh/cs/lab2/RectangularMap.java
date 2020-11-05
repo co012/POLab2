@@ -56,10 +56,7 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
-            if (position.equals(animal.getPosition())) return true;
-        }
-        return false;
+        return objectAt(position).isPresent();
     }
 
     @Override
