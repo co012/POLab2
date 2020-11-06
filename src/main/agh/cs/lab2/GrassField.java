@@ -6,19 +6,15 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GrassField extends AbstractWorldMap implements IWorldMap {
+public class GrassField extends AbstractWorldMap {
 
     private final LinkedList<Grass> grassList;
-    private final LinkedList<Animal> animalList;
-    private final MapVisualiser mapVisualiser;
-
 
     public GrassField(int grassCount) {
+        super();
         if (grassCount <= 0) throw new IllegalArgumentException("grassCount must be greater than 0");
 
-        mapVisualiser = new MapVisualiser(this);
         grassList = new LinkedList<>();
-        animalList = new LinkedList<>();
 
         int grassUpperBoundary = (int) Math.sqrt(grassCount * 10);
         while (grassList.size() < grassCount) {
@@ -35,55 +31,9 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     }
 
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        return !(objectAt(position).orElse(null) instanceof Animal);
-    }
 
     @Override
-    public boolean place(Animal animal) {
-        if (!canMoveTo(animal.getPosition())) return false;
-        animalList.add(animal);
-        return true;
-
-    }
-
-    @Override
-    public void run(List<MoveDirection> directions) {
-        if (animalList.isEmpty()) return;
-
-        ListIterator<Animal> animalListIterator = animalList.listIterator();
-
-        for (MoveDirection direction : directions) {
-            animalListIterator.next().move(direction);
-
-            if (!animalListIterator.hasNext()) animalListIterator = animalList.listIterator();
-        }
-
-
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return objectAt(position).isPresent();
-    }
-
-    @Override
-    public Optional<Object> objectAt(Vector2d position) {
-
-        for (Animal animal : animalList) {
-            if (position.equals(animal.getPosition())) return Optional.of(animal);
-        }
-
-        for (Grass grass : grassList) {
-            if (position.equals(grass.getPosition())) return Optional.of(grass);
-        }
-
-        return Optional.empty();
-    }
-
-    @Override
-    public String toString() {
+    protected Vector2d[] getBoundary() {
         Vector2d lowerLeftBoundary = null;
         Vector2d upperRightBoundary = null;
 
@@ -101,6 +51,20 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
         if (lowerLeftBoundary == null) throw new RuntimeException("grassList or animalList is empty");
 
-        return mapVisualiser.draw(lowerLeftBoundary, upperRightBoundary);
+        return new Vector2d[]{lowerLeftBoundary, upperRightBoundary};
     }
+
+    @Override
+    public Optional<Object> objectAt(Vector2d position) {
+
+        Optional<Object> optional = super.objectAt(position);
+        if (optional.isPresent()) return optional;
+
+        for (Grass grass : grassList) {
+            if (position.equals(grass.getPosition())) return Optional.of(grass);
+        }
+
+        return Optional.empty();
+    }
+
 }
