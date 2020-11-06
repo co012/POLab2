@@ -6,7 +6,7 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GrassField implements IWorldMap {
+public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     private final LinkedList<Grass> grassList;
     private final LinkedList<Animal> animalList;
@@ -22,13 +22,13 @@ public class GrassField implements IWorldMap {
 
         int grassUpperBoundary = (int) Math.sqrt(grassCount * 10);
         while (grassList.size() < grassCount) {
-            int x = ThreadLocalRandom.current().nextInt(0,grassUpperBoundary + 1);
-            int y = ThreadLocalRandom.current().nextInt(0,grassUpperBoundary + 1);
+            int x = ThreadLocalRandom.current().nextInt(0, grassUpperBoundary + 1);
+            int y = ThreadLocalRandom.current().nextInt(0, grassUpperBoundary + 1);
 
-            Vector2d position = new Vector2d(x,y);
+            Vector2d position = new Vector2d(x, y);
             Optional<Object> optional = objectAt(position);
 
-            if(optional.isEmpty()) grassList.add(new Grass(position));
+            if (optional.isEmpty()) grassList.add(new Grass(position));
 
         }
 
@@ -51,13 +51,10 @@ public class GrassField implements IWorldMap {
     @Override
     public void run(List<MoveDirection> directions) {
         if (animalList.isEmpty()) return;
-        System.out.print(this);
 
         ListIterator<Animal> animalListIterator = animalList.listIterator();
 
         for (MoveDirection direction : directions) {
-            System.out.print(this);
-
             animalListIterator.next().move(direction);
 
             if (!animalListIterator.hasNext()) animalListIterator = animalList.listIterator();

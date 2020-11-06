@@ -8,72 +8,72 @@ public class AnimalTest {
 
     @Test
     public void shouldChangeMapDirection() {
-        IWorldMap map = new RectangularMap(4,4);
+        IWorldMap map = new RectangularMap(4, 4);
         Animal animal = new Animal(map);
 
         animal.move(MoveDirection.LEFT);
-        assertEquals(MapDirection.WEST,animal.getMapDirection());
+        assertEquals(MapDirection.WEST, animal.getMapDirection());
 
         animal.move(MoveDirection.RIGHT);
-        assertEquals(MapDirection.NORTH,animal.getMapDirection());
+        assertEquals(MapDirection.NORTH, animal.getMapDirection());
     }
 
     @Test
-    public void shouldChangePosition(){
-        IWorldMap map = new RectangularMap(4,4);
+    public void shouldChangePosition() {
+        IWorldMap map = new RectangularMap(4, 4);
         Animal animal = new Animal(map);
 
         animal.move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(2,3),animal.getPosition());
+        assertEquals(new Vector2d(2, 3), animal.getPosition());
 
         animal.move(MoveDirection.LEFT);
         animal.move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(1,3),animal.getPosition());
+        assertEquals(new Vector2d(1, 3), animal.getPosition());
 
         animal.move(MoveDirection.BACKWARD);
-        assertEquals(new Vector2d(2,3),animal.getPosition());
+        assertEquals(new Vector2d(2, 3), animal.getPosition());
 
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.BACKWARD);
-        assertEquals(new Vector2d(2,2),animal.getPosition());
+        assertEquals(new Vector2d(2, 2), animal.getPosition());
 
     }
 
     @Test
-    public void shouldNotAllowUpperRightBoundaryCrossing(){
+    public void shouldNotAllowUpperRightBoundaryCrossing() {
         //upperRight = (4,4)
 
 
-        IWorldMap map = new RectangularMap(4,4);
+        IWorldMap map = new RectangularMap(4, 4);
         Animal animal = new Animal(map);
 
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(2,4),animal.getPosition());
+        assertEquals(new Vector2d(2, 4), animal.getPosition());
 
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(4,4),animal.getPosition());
-
-        animal.move(MoveDirection.RIGHT);
-        animal.move(MoveDirection.BACKWARD);
-        assertEquals(new Vector2d(4,4),animal.getPosition());
+        assertEquals(new Vector2d(4, 4), animal.getPosition());
 
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.BACKWARD);
-        assertEquals(new Vector2d(4,4),animal.getPosition());
+        assertEquals(new Vector2d(4, 4), animal.getPosition());
+
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.BACKWARD);
+        assertEquals(new Vector2d(4, 4), animal.getPosition());
 
 
     }
 
     @Test
-    public void shouldNotAllowLowerLeftBoundaryCrossing(){
+    public void shouldNotAllowLowerLeftBoundaryCrossing() {
         //lowerLeft = (0,0)
 
-        IWorldMap map = new RectangularMap(4,4);
+        IWorldMap map = new RectangularMap(4, 4);
         Animal animal = new Animal(map);
 
         animal.move(MoveDirection.RIGHT);
@@ -81,21 +81,21 @@ public class AnimalTest {
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(2,0),animal.getPosition());
+        assertEquals(new Vector2d(2, 0), animal.getPosition());
 
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(0,0),animal.getPosition());
-
-        animal.move(MoveDirection.RIGHT);
-        animal.move(MoveDirection.BACKWARD);
-        assertEquals(new Vector2d(0,0),animal.getPosition());
+        assertEquals(new Vector2d(0, 0), animal.getPosition());
 
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.BACKWARD);
-        assertEquals(new Vector2d(0,0),animal.getPosition());
+        assertEquals(new Vector2d(0, 0), animal.getPosition());
+
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.BACKWARD);
+        assertEquals(new Vector2d(0, 0), animal.getPosition());
     }
 
 }

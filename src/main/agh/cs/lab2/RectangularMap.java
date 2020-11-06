@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
 
-public class RectangularMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap implements IWorldMap {
 
     private final int width;
     private final int height;

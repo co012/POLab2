@@ -26,11 +26,11 @@ public class MapAnimalTest {
         for (int i = 0; i < 8; i++) {
             map.run(directions.subList(i * 2, (i + 1) * 2));
 
-            assertEquals(animalOnePositions[i],animalOne.getPosition());
-            assertEquals(animalOneDirections[i],animalOne.getMapDirection());
+            assertEquals(animalOnePositions[i], animalOne.getPosition());
+            assertEquals(animalOneDirections[i], animalOne.getMapDirection());
 
-            assertEquals(animalTwoPositions[i],animalTwo.getPosition());
-            assertEquals(animalTwoDirections[i],animalTwo.getMapDirection());
+            assertEquals(animalTwoPositions[i], animalTwo.getPosition());
+            assertEquals(animalTwoDirections[i], animalTwo.getMapDirection());
 
         }
 
