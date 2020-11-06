@@ -19,19 +19,19 @@ public final class Vector2d {
 
 
     public boolean precedes(Vector2d other) {
-        if (other == null) throw new NullPointerException();
+        if (other == null) throw new NullPointerException("other can't be null");
         return x <= other.x && y <= other.y;
     }
 
 
     public boolean follows(Vector2d other) {
-        if (other == null) return false;
+        if (other == null) throw new NullPointerException("other can't be null");
         return x >= other.x && y >= other.y;
     }
 
 
     public Vector2d upperRight(Vector2d other) {
-        if (other == null) return null;
+        if (other == null) return new Vector2d(x,y);
 
         int nx = Math.max(other.x, this.x);
         int ny = Math.max(other.y, this.y);
@@ -41,7 +41,7 @@ public final class Vector2d {
 
 
     public Vector2d lowerLeft(Vector2d other) {
-        if (other == null) return null;
+        if (other == null) return new Vector2d(x,y);
 
         int nx = Math.min(other.x, this.x);
         int ny = Math.min(other.y, this.y);
@@ -51,7 +51,7 @@ public final class Vector2d {
 
 
     public Vector2d add(Vector2d other) {
-        if (other == null) return null;
+        if (other == null) throw new NullPointerException("other can't be null");
 
         int nx = other.x + this.x;
         int ny = other.y + this.y;
@@ -61,7 +61,7 @@ public final class Vector2d {
 
 
     public Vector2d subtract(Vector2d other) {
-        if (other == null) return null;
+        if (other == null) throw new NullPointerException("other can't be null");
 
         int nx = -other.x + this.x;
         int ny = -other.y + this.y;

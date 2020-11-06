@@ -13,6 +13,8 @@ public class Animal {
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
+        if(initialPosition == null)throw new NullPointerException("initialPosition can't be null");
+
         this.map = map;
         mapDirection = MapDirection.NORTH;
         position = initialPosition;

@@ -10,15 +10,14 @@ public class RectangularMap implements IWorldMap {
     private final int width;
     private final int height;
 
-    private final List<Animal> animals;
-
+    private final List<Animal> animalList;
     private final MapVisualiser mapVisualiser;
 
     public RectangularMap(int width, int height) {
 
         this.width = width;
         this.height = height;
-        animals = new LinkedList<>();
+        animalList = new LinkedList<>();
         mapVisualiser = new MapVisualiser(this);
 
     }
@@ -30,25 +29,25 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean place(Animal animal) {
-        if (isOccupied(animal.getPosition())) return false;
+        if (!canMoveTo(animal.getPosition())) return false;
 
-        animals.add(animal);
+        animalList.add(animal);
         return true;
 
     }
 
     @Override
     public void run(List<MoveDirection> directions) {
-        if (animals.isEmpty()) return;
+        if (animalList.isEmpty()) return;
 
 
-        ListIterator<Animal> animalListIterator = animals.listIterator();
+        ListIterator<Animal> animalListIterator = animalList.listIterator();
 
         for (MoveDirection direction : directions) {
 
             animalListIterator.next().move(direction);
 
-            if (!animalListIterator.hasNext()) animalListIterator = animals.listIterator();
+            if (!animalListIterator.hasNext()) animalListIterator = animalList.listIterator();
         }
 
 
@@ -61,7 +60,7 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public Optional<Object> objectAt(Vector2d position) {
-        for (Animal animal : animals) {
+        for (Animal animal : animalList) {
             if (position.equals(animal.getPosition())) return Optional.of(animal);
         }
         return Optional.empty();
