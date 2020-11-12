@@ -1,9 +1,5 @@
 package agh.cs.lab2;
 
-import agh.cs.lab2.Animal;
-import agh.cs.lab2.MoveDirection;
-import agh.cs.lab2.Vector2d;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +22,8 @@ public interface IWorldMap {
      * Place a animal on the map.
      *
      * @param animal The animal to place on the map.
-     * @return True if the animal was placed. The animal cannot be placed if the map is already occupied.
      */
-    boolean place(Animal animal);
+    void place(Animal animal);
 
     /**
      * Move the animal on the map according to the provided move directions. Every

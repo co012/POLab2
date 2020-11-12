@@ -3,7 +3,7 @@ package agh.cs.lab2;
 import java.util.LinkedList;
 
 
-public class OptionsParser {
+public final class OptionsParser {
 
     public static LinkedList<MoveDirection> parse(String[] dir) {
         LinkedList<MoveDirection> moveDirections = new LinkedList<>();
@@ -14,6 +14,7 @@ public class OptionsParser {
                 case "b", "backward" -> moveDirections.add(MoveDirection.BACKWARD);
                 case "l", "left" -> moveDirections.add(MoveDirection.LEFT);
                 case "r", "right" -> moveDirections.add(MoveDirection.RIGHT);
+                default -> throw new IllegalArgumentException(d + " is not a legal move specification");
             }
         }
 

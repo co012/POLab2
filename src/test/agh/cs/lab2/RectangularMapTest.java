@@ -15,18 +15,18 @@ public class RectangularMapTest {
         Vector2d position = new Vector2d(2, 3);
 
         assertTrue(map.canMoveTo(position));
-        assertTrue(map.place(new Animal(map, position)));
+        map.place(new Animal(map, position));
         assertFalse(map.canMoveTo(position));
 
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotAllowPlacingTwoAnimalsOnTheSamePosition() {
         IWorldMap map = new RectangularMap(20,20);
 
         Vector2d position = new Vector2d(2, 3);
-        assertTrue(map.place(new Animal(map, position)));
-        assertFalse(map.place(new Animal(map, position)));
+        map.place(new Animal(map, position));
+        map.place(new Animal(map, position));
 
     }
 

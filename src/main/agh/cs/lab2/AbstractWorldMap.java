@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public abstract class AbstractWorldMap implements IWorldMap {
     protected final List<Animal> animalList;
-    protected final MapVisualiser mapVisualiser;
+    private final MapVisualiser mapVisualiser;
 
     AbstractWorldMap() {
         mapVisualiser = new MapVisualiser(this);
@@ -25,13 +25,13 @@ public abstract class AbstractWorldMap implements IWorldMap {
     @Override
     public boolean canMoveTo(Vector2d position) {
         return !(objectAt(position).orElse(null) instanceof Animal);
-    }
+    }//TODO:instanceof BAD!!
 
     @Override
-    public boolean place(Animal animal) {
-        if (!canMoveTo(animal.getPosition())) return false;
+    public void place(Animal animal) {
+        if (!canMoveTo(animal.getPosition())) throw new IllegalArgumentException(animal.getPosition().toString() + " is not available");
         animalList.add(animal);
-        return true;
+
 
     }
 

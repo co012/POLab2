@@ -1,8 +1,6 @@
 package agh.cs.lab2;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -23,7 +21,6 @@ public class GrassField extends AbstractWorldMap {
 
             Vector2d position = new Vector2d(x, y);
             Optional<Object> optional = objectAt(position);
-
             if (optional.isEmpty()) grassList.add(new Grass(position));
 
         }
