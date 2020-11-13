@@ -1,17 +1,14 @@
 package agh.cs.lab2;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class AbstractWorldMap implements IWorldMap {
-    protected final List<Animal> animalList;
+    protected final LinkedHashMap<Vector2d, Animal> animalHashMap;
     private final MapVisualiser mapVisualiser;
 
     AbstractWorldMap() {
         mapVisualiser = new MapVisualiser(this);
-        animalList = new LinkedList<>();
+        animalHashMap = new LinkedHashMap<>();
     }
 
     @Override
@@ -31,22 +28,36 @@ public abstract class AbstractWorldMap implements IWorldMap {
     @Override
     public void place(Animal animal) {
         if (!canMoveTo(animal.getPosition())) throw new IllegalArgumentException(animal.getPosition().toString() + " is not available");
-        animalList.add(animal);
+        animalHashMap.put(animal.getPosition(),animal);
 
 
     }
 
     @Override
     public void run(List<MoveDirection> directions) {
-        if (animalList.isEmpty()) return;
+        if (animalHashMap.isEmpty()) return;
 
-        ListIterator<Animal> animalListIterator = animalList.listIterator();
+        Set<Map.Entry<Vector2d,Animal>> animalHashMapSet = animalHashMap.entrySet();
+        Iterator<Map.Entry<Vector2d, Animal>> animalListIterator = animalHashMapSet.iterator();
 
         for (MoveDirection direction : directions) {
-            animalListIterator.next().move(direction);
+            animalListIterator.next().getValue().move(direction);
 
-            if (!animalListIterator.hasNext()) animalListIterator = animalList.listIterator();
+            if (!animalListIterator.hasNext()) animalListIterator = animalHashMapSet.iterator();
         }
+
+        LinkedList<Animal> animalsToReAdd = new LinkedList<>();
+        LinkedList<Vector2d> keysToRemove = new LinkedList<>();
+
+        for (Map.Entry<Vector2d,Animal> entry : animalHashMapSet){
+            if(entry.getValue().getPosition().equals(entry.getKey())) continue;
+            animalsToReAdd.add(entry.getValue());
+            keysToRemove.add(entry.getKey());
+        }
+
+        keysToRemove.forEach(animalHashMap::remove);
+        animalsToReAdd.forEach(animal -> animalHashMap.put(animal.getPosition(),animal));
+
     }
 
     @Override
@@ -56,9 +67,6 @@ public abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public Optional<IWorldMapElement> objectAt(Vector2d position) {
-        for (Animal animal : animalList) {
-            if (position.equals(animal.getPosition())) return Optional.of(animal);
-        }
-        return Optional.empty();
+        return Optional.ofNullable(animalHashMap.get(position));
     }
 }

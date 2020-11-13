@@ -2,8 +2,6 @@ package agh.cs.lab2;
 
 
 
-import agh.cs.lab2.Vector2d;
-
 import java.util.Optional;
 
 /**
