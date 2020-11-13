@@ -20,7 +20,7 @@ public class GrassField extends AbstractWorldMap {
             int y = ThreadLocalRandom.current().nextInt(0, grassUpperBoundary + 1);
 
             Vector2d position = new Vector2d(x, y);
-            Optional<Object> optional = objectAt(position);
+            Optional<IWorldMapElement> optional = objectAt(position);
             if (optional.isEmpty()) grassList.add(new Grass(position));
 
         }
@@ -52,9 +52,9 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public Optional<Object> objectAt(Vector2d position) {
+    public Optional<IWorldMapElement> objectAt(Vector2d position) {
 
-        Optional<Object> optional = super.objectAt(position);
+        Optional<IWorldMapElement> optional = super.objectAt(position);
         if (optional.isPresent()) return optional;
 
         for (Grass grass : grassList) {

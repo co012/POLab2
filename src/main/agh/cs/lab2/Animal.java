@@ -1,6 +1,6 @@
 package agh.cs.lab2;
 
-public class Animal {
+public class Animal implements IWorldMapElement {
 
 
     private MapDirection mapDirection;
@@ -23,6 +23,11 @@ public class Animal {
 
     public MapDirection getMapDirection() {
         return mapDirection;
+    }
+
+    @Override
+    public boolean isTakingTheWholeSpace() {
+        return true;
     }
 
     public Vector2d getPosition() {

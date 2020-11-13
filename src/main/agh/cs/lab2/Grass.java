@@ -1,8 +1,8 @@
 package agh.cs.lab2;
 
-public class Grass {
+public class Grass implements IWorldMapElement {
 
-    private Vector2d position;
+    private final Vector2d position;
 
 
     public Grass(Vector2d position) {
@@ -10,6 +10,11 @@ public class Grass {
         this.position = position;
     }
 
+
+    @Override
+    public boolean isTakingTheWholeSpace() {
+        return false;
+    }
 
     public Vector2d getPosition() {
         return position;

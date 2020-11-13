@@ -24,8 +24,9 @@ public abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !(objectAt(position).orElse(null) instanceof Animal);
-    }//TODO:instanceof BAD!!
+        Optional<IWorldMapElement> optional = objectAt(position);
+        return optional.isEmpty()|| !optional.get().isTakingTheWholeSpace();
+    }
 
     @Override
     public void place(Animal animal) {
@@ -54,7 +55,7 @@ public abstract class AbstractWorldMap implements IWorldMap {
     }
 
     @Override
-    public Optional<Object> objectAt(Vector2d position) {
+    public Optional<IWorldMapElement> objectAt(Vector2d position) {
         for (Animal animal : animalList) {
             if (position.equals(animal.getPosition())) return Optional.of(animal);
         }
