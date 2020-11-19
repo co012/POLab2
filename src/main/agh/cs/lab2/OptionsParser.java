@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 public final class OptionsParser {
 
+    private OptionsParser(){}
+
     public static LinkedList<MoveDirection> parse(String[] dir) {
         LinkedList<MoveDirection> moveDirections = new LinkedList<>();
 
