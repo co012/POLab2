@@ -28,11 +28,15 @@ public class MapVisualiser {
      * indices of the map will have no more than two characters (including the
      * sign).
      *
-     * @param lowerLeft  The lower left corner of the region that is drawn.
-     * @param upperRight The upper right corner of the region that is drawn.
+     * @param mapBoundary class with
      * @return String representation of the selected region of the map.
      */
-    public String draw(Vector2d lowerLeft, Vector2d upperRight) {
+    public String draw(MapBoundary mapBoundary) {
+        if(mapBoundary.mapElementsByX.size() == 0) return "X";
+
+        Vector2d upperRight = mapBoundary.mapElementsByX.getLast().getPosition().upperRight(mapBoundary.mapElementsByY.getLast().getPosition());
+        Vector2d lowerLeft = mapBoundary.mapElementsByX.getFirst().getPosition().upperRight(mapBoundary.mapElementsByY.getFirst().getPosition());
+
         StringBuilder builder = new StringBuilder();
         for (int i = upperRight.y + 1; i >= lowerLeft.y - 1; i--) {
             if (i == upperRight.y + 1) {

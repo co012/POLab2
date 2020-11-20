@@ -75,7 +75,7 @@ public class Animal implements IWorldMapElement,IPositionChangedPublisher {
     }
 
     private void positionChanged(Vector2d newPosition){
-        observers.forEach(observer -> observer.positionChanged(position,newPosition));
+        observers.forEach(observer -> observer.positionChanged(this,position,newPosition));
     }
 
 }

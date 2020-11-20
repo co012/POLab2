@@ -21,7 +21,11 @@ public class GrassField extends AbstractWorldMap {
 
             Vector2d position = new Vector2d(x, y);
             Optional<IWorldMapElement> optional = objectAt(position);
-            if (optional.isEmpty()) grassHashMap.put(position,new Grass(position));
+            if (optional.isEmpty()){
+                Grass grass = new Grass(position);
+                grassHashMap.put(position,new Grass(position));
+                mapBoundary.addIWorldMamElement(grass);
+            }
 
         }
 
@@ -29,7 +33,6 @@ public class GrassField extends AbstractWorldMap {
     }
 
 
-    @Override
     protected Vector2d[] getBoundary() {
         Vector2d lowerLeftBoundary = null;
         Vector2d upperRightBoundary = null;

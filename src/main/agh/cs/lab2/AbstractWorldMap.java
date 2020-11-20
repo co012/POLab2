@@ -4,20 +4,22 @@ import java.util.*;
 
 public abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
     protected final LinkedHashMap<Vector2d, Animal> animalHashMap;
+    protected final MapBoundary mapBoundary;
     private final MapVisualiser mapVisualiser;
+
 
     AbstractWorldMap() {
         mapVisualiser = new MapVisualiser(this);
         animalHashMap = new LinkedHashMap<>();
+        mapBoundary = new MapBoundary();
     }
 
     @Override
     public String toString() {
-        Vector2d[] boundary = getBoundary();
-        return mapVisualiser.draw(boundary[0], boundary[1]);
+        return mapVisualiser.draw(mapBoundary);
     }
 
-    protected abstract Vector2d[] getBoundary();
+
 
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -31,6 +33,9 @@ public abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObser
         animalHashMap.put(animal.getPosition(),animal);
         animal.addObserver(this);
 
+        mapBoundary.addIWorldMamElement(animal);
+        animal.addObserver(mapBoundary);
+
 
     }
 
@@ -43,7 +48,7 @@ public abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObser
 
         for (MoveDirection direction : directions) {
             animalListIterator.next().move(direction);
-
+            System.out.println(this.toString());
             if (!animalListIterator.hasNext()) animalListIterator = animalList.iterator();
         }
 
@@ -60,7 +65,7 @@ public abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObser
     }
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+    public void positionChanged(IWorldMapElement element, Vector2d oldPosition, Vector2d newPosition) {
         Animal animal = animalHashMap.remove(oldPosition);
         animalHashMap.put(newPosition,animal);
     }

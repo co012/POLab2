@@ -18,7 +18,7 @@ public class RectangularMap extends AbstractWorldMap {
 
     }
 
-    @Override
+
     protected Vector2d[] getBoundary() {
         return new Vector2d[]{new Vector2d(0, 0), new Vector2d(width, height)};
     }
