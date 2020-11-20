@@ -19,10 +19,6 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
 
-    protected Vector2d[] getBoundary() {
-        return new Vector2d[]{new Vector2d(0, 0), new Vector2d(width, height)};
-    }
-
     @Override
     public boolean canMoveTo(Vector2d position) {
         return position.x >= 0 && position.y >= 0 && position.x <= width && position.y <= height && super.canMoveTo(position);

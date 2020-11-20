@@ -33,27 +33,6 @@ public class GrassField extends AbstractWorldMap {
     }
 
 
-    protected Vector2d[] getBoundary() {
-        Vector2d lowerLeftBoundary = null;
-        Vector2d upperRightBoundary = null;
-
-        for (Animal animal : animalHashMap.values()) {
-            lowerLeftBoundary = animal.getPosition().lowerLeft(lowerLeftBoundary);
-            upperRightBoundary = animal.getPosition().upperRight(upperRightBoundary);
-
-        }
-
-        for (Grass grass : grassHashMap.values()) {
-            lowerLeftBoundary = grass.getPosition().lowerLeft(lowerLeftBoundary);
-            upperRightBoundary = grass.getPosition().upperRight(upperRightBoundary);
-
-        }
-
-        if (lowerLeftBoundary == null) throw new RuntimeException("grassList or animalList is empty");
-
-        return new Vector2d[]{lowerLeftBoundary, upperRightBoundary};
-    }
-
     @Override
     public Optional<IWorldMapElement> objectAt(Vector2d position) {
 
