@@ -52,4 +52,6 @@ public interface IWorldMap {
     Optional<IWorldMapElement> objectAt(Vector2d position);
 
 
+
+
 }

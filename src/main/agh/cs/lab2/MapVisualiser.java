@@ -32,10 +32,10 @@ public class MapVisualiser {
      * @return String representation of the selected region of the map.
      */
     public String draw(MapBoundary mapBoundary) {
-        if(mapBoundary.mapElementsByX.size() == 0) return "X";
+        if(mapBoundary.isEmpty()) return "X";
 
-        Vector2d upperRight = mapBoundary.mapElementsByX.getLast().getPosition().upperRight(mapBoundary.mapElementsByY.getLast().getPosition());
-        Vector2d lowerLeft = mapBoundary.mapElementsByX.getFirst().getPosition().upperRight(mapBoundary.mapElementsByY.getFirst().getPosition());
+        Vector2d upperRight = mapBoundary.getUpperRightBoundary();
+        Vector2d lowerLeft = mapBoundary.getLowerLeftBoundary();
 
         StringBuilder builder = new StringBuilder();
         for (int i = upperRight.y + 1; i >= lowerLeft.y - 1; i--) {

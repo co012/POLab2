@@ -4,8 +4,8 @@ import java.util.*;
 
 public class MapBoundary implements IPositionChangeObserver {
 
-    public LinkedList<IWorldMapElement> mapElementsByX;
-    public LinkedList<IWorldMapElement> mapElementsByY;
+    private final LinkedList<IWorldMapElement> mapElementsByX;
+    private final LinkedList<IWorldMapElement> mapElementsByY;
 
     public MapBoundary() {
         mapElementsByX = new LinkedList<>();
@@ -44,6 +44,18 @@ public class MapBoundary implements IPositionChangeObserver {
             sortedList.add(element);
 
         }
+    }
+
+    public boolean isEmpty(){
+        return mapElementsByX.isEmpty();
+    }
+
+    public Vector2d getLowerLeftBoundary(){
+        return mapElementsByX.getFirst().getPosition().lowerLeft(mapElementsByY.getFirst().getPosition());
+    }
+
+    public Vector2d getUpperRightBoundary(){
+        return mapElementsByX.getLast().getPosition().upperRight(mapElementsByY.getLast().getPosition());
     }
 
 }
